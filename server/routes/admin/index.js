@@ -43,10 +43,10 @@ module.exports = app =>{
 
     const multer = require('multer')
     const path = require('path')
-    const pathname=path.join(__dirname,'/../../uploads')
+    const pathname=path.join(__dirname,'../../uploads')
    
     const upload = multer({dest:pathname})
-    app.post('/admin/api/upload',upload.single('file'),async(req,res)=>{
+    app.post('/admin/api/upload',upload.single('file'),async (req,res)=>{
       const file = req.file
       file.url=`http://localhost:3000/uploads/${file.filename}`
       res.send(file)
