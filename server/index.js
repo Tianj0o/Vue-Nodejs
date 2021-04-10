@@ -1,7 +1,7 @@
 const express =require('express')
 
 const app =express()
-
+app.set('secret','adasdadadad1321')
 app.use(require('cors')())
 
 app.use('/uploads',express.static(__dirname+'/uploads'))

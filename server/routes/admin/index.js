@@ -1,12 +1,16 @@
 module.exports = app =>{
     const  express = require('express')
+    const jwt = require('jsonwebtoken')
+    const adminuser=require("../../models/AdminUser")
+    const assert = require('http-assert')
     const router = express.Router(
       {
         mergeParams:true,
       }
     )
 
-      
+    const authMid =require('../../Middlewaras/auth')
+    const resourceMid = require('../../Middlewaras/resource')
     router.post('/',async (req,res)=>{
       const model = await req.Model.create(req.body)
       res.send(model)
@@ -39,20 +43,43 @@ module.exports = app =>{
         success:true,
       })
     })
-    app.use('/admin/api/rest/:resource',async function(req,res,next){
-      const modelName = require('inflection').classify(`${req.params.resource}`)
-       req.Model = require(`../../models/${modelName}`)
-      next()
-    }, router)
+    app.use('/admin/api/rest/:resource',authMid(),resourceMid(), router)
 
     const multer = require('multer')
     const path = require('path')
     const pathname=path.join(__dirname,'../../uploads')
    
     const upload = multer({dest:pathname})
-    app.post('/admin/api/upload',upload.single('file'),async (req,res)=>{
+    app.post('/admin/api/upload',authMid(),upload.single('file'),async (req,res)=>{
       const file = req.file
       file.url=`http://localhost:3000/uploads/${file.filename}`
       res.send(file)
+    })
+
+
+    app.post('/admin/api/login',async (req,res)=>{
+      const {username,password} = req.body
+     
+
+      const user=await adminuser.findOne({
+        username:username
+      }).select('+password')
+      assert(user,422,'不存在此用户')
+
+
+      const isTrue = require('bcrypt').compareSync(password,user.password)
+      
+      assert(isTrue,422,'密码错误')
+
+     
+    app.set('secret','adasdadadad1321')
+     const token = jwt.sign({id:user._id},app.get('secret'))
+
+      res.send({token})
+    })
+    app.use(async(err,req,res,next)=>{
+      res.status(err.statusCode||500).send({
+        message:err.message
+      })
     })
 }
