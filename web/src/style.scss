@@ -14,6 +14,12 @@ body {
     background-color: #F1F1F1;
 
 }
+.w-100 {
+    width: 100%;
+}
+.h-100 {
+    height: 100%;
+}
 a {
     color: #999;
 }
@@ -23,6 +29,7 @@ a {
 $colors:(
     'primary': #db9e3f,
     'white':#fff,
+    'light-1':#d4d9de,
     'black':#000,
     'dark':#222,
     'grey':#999,
@@ -30,7 +37,7 @@ $colors:(
     'light':#f9f9f9,
     'dark-1':#343440,
 );
-
+$border-color: map-get($colors, 'light-1');
 @each $colorkey,$color in $colors {
     .text-#{$colorkey}{
         color: $color;
@@ -42,7 +49,7 @@ $colors:(
 //文字对齐方式
 @each $var in (left,center,right) {
     .text-#{$var} {
-        text-align: $var;
+        text-align: $var !important;
     }  
 }
 $base-font-size:1rem;
@@ -68,6 +75,9 @@ $font-sizes:(
 
 .flex-column{
     flex-direction: column;
+}
+.flex-wrap {
+    flex-wrap:wrap;
 }
 
 $flex-jc:(
@@ -156,13 +166,32 @@ $spacing-sizes: (
 
 //nav
 .nav {
+    display: flex;
     .nav-item {
-        border-bottom:3px solid transparent;
-        padding-bottom: 0.2rem;
-   
-    &.active {
-        border-bottom:3px solid #fff;
-
+      border-bottom: 3px solid transparent;
+      padding-bottom: 0.2rem;
+      &.active {
+        color: map-get($colors, 'primary');
+        border-bottom-color: map-get($colors, 'primary');
+      }
     }
-}
+    &.nav-inverse {
+      .nav-item {
+        color: map-get($colors, 'white');
+        &.active {
+          border-bottom-color: map-get($colors, 'white');
+        }
+      }
+    }
+    
+  }
+.sprite {
+    background: url(../src/assets/index.png) no-repeat 0 0;
+    background-size: 28.8462rem;
+  display: inline-block;
+  &.sprite-news {
+    width: 1.7692rem;
+    height: 1.5385rem;
+    background-position: 63.546% 15.517%;
+  }
 }
