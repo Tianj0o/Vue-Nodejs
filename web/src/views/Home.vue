@@ -72,49 +72,15 @@ export default {
         },
         // Some Swiper option/callback...
       },
-      newCats: [
-        {
-          name: "热门",
-          newslist: new Array(5).fill({}).map(() => ({
-            categoryName: "公告",
-            title: "6月2不停机更新",
-            data: "06/01",
-          })),
-        },
-        {
-          name: "新闻",
-          newslist: new Array(5).fill({}).map(() => ({
-            categoryName: "新闻",
-            title: "6月2不停机更新",
-            data: "06/01",
-          })),
-        },
-        {
-          name: "公告",
-          newslist: new Array(5).fill({}).map(() => ({
-            categoryName: "公告",
-            title: "6月2不停机更新",
-            data: "06/01",
-          })),
-        },
-        {
-          name: "热门",
-          newslist: new Array(5).fill({}).map(() => ({
-            categoryName: "公告",
-            title: "6月2不停机更新",
-            data: "06/01",
-          })),
-        },
-        {
-          name: "热门",
-          newslist: new Array(5).fill({}).map(() => ({
-            categoryName: "公告",
-            title: "6月2不停机更新",
-            data: "06/01",
-          })),
-        },
-      ],
+      newCats: [],
     };
+  },
+  methods:{
+    async fetchNewCats(){
+      const res = await this.$http.get('news/list')
+      this.newCats=res.data
+      console.log(this.newCats)
+    }
   },
   computed: {
     swiper() {
@@ -124,6 +90,9 @@ export default {
   mounted() {
     this.swiper.slideTo(3, 100, false);
   },
+  created(){
+    this.fetchNewCats()
+  }
 };
 </script>
 

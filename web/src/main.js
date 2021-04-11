@@ -12,6 +12,10 @@ Vue.component('m-card',Card)
 Vue.component('m-list-card',ListCard)
 Vue.config.productionTip = false
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
+import axios from 'axios'
+Vue.prototype.$http = axios.create({
+  baseURL:'http://localhost:3000/web/api'
+}) 
 new Vue({
   router,
   render: h => h(App)
