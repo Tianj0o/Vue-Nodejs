@@ -35,14 +35,14 @@
       </div>
     </div>
     <!-- end of nav -->
-    <m-list-card icon="menu" title="新闻资讯" :categories="newCats">
+    <m-list-card icon="menu1" title="新闻资讯" :categories="newCats">
       <template #items="{ category }">
-        <div class="py-2" v-for="(news,i) in category.newslist" :key="i">
-          <span>[{{news.categoryName}}]</span>
-          <span>|</span>
-          <span>{{news.title}}</span>
+        <div class="py-2 fs-lg d-flex" v-for="(news,i) in category.newsList" :key="i">
+          <span class="text-info text-grey-1">[{{news.categoryName}}]</span>
+          <span class="px-2">|</span>
+          <span class="flex-1 text-dark-1 text-ellipse">{{news.title}}</span>
 
-          <span>{{news.data}}</span>
+          <span class="text-grey">{{news.updatedAt.slice(5,10)}}</span>
         </div>
       </template>
     </m-list-card>

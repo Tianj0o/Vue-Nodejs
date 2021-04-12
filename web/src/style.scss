@@ -132,6 +132,12 @@ $spacing-sizes: (
   4: 1.5,
   5: 3,
 );
+text-ellipse {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+};
 @each $typeKey, $type in $spacing-types {
     // .m-1
     @each $sizeKey, $size in $spacing-sizes {
