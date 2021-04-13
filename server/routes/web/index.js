@@ -1,3 +1,5 @@
+const Item = require('../../models/Item')
+
 module.exports = app => {
   const router = require('express').Router()
   const mongoose = require('mongoose')
@@ -117,6 +119,17 @@ module.exports = app => {
       categories:{$in: data.categories}
     }).limit(2)
     res.send(data)
+  })
+  router.get('/heros/:id',async (req,res)=>{
+    const data = await Hero.findById(req.params.id)
+    res.send(data)
+  })
+  router.get('/items/init',async(req,res)=>{
+    const rowData=[{"name":"追击刀锋","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1523.jpg"},{"name":"抵抗之靴","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1422.jpg"},{"name":"暗影战斧","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1137.jpg"},{"name":"宗师之力","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1134.jpg"},{"name":"破军","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1138.jpg"},{"name":"名刀·司命","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1127.jpg"},{"name":"巡守利斧","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1522.jpg"},{"name":"抵抗之靴","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1422.jpg"},{"name":"暗影战斧","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1137.jpg"},{"name":"冰痕之握","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/13310.jpg"},{"name":"魔女斗篷","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1335.jpg"},{"name":"破军","icon":"https://game.gtimg.cn/images/yxzj/img201606/itemimg/1138.jpg"}]
+    for(let item of rowData){
+      await Item.insertMany(item)
+    }
+    res.send(rowData)
   })
   app.use('/web/api', router)
 

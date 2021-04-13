@@ -10,6 +10,9 @@ const schema = new mongoose.Schema({
     title: {
         type: String
     },
+    banner: {
+        type: String
+    },
     categories: [{
         type: mongoose.SchemaTypes.ObjectId, ref: "Category"
     }],
@@ -24,7 +27,7 @@ const schema = new mongoose.Schema({
         icon: { type: String },
         name: { type: String },
         description: { type: String },
-        tips: { type: String },
+        
     }],
     items1: [{
         type: mongoose.SchemaTypes.ObjectId, ref: "Item"

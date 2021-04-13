@@ -2,8 +2,8 @@
   <div class="about">
     <h1>{{ id ? "修改英雄" : "新建英雄" }}</h1>
     <el-form lable-width="150px" @submit.native.prevent="save">
-      <el-tabs value='skills' type="border-card">
-        <el-tab-pane label="基础信息">
+      <el-tabs value='basic' type="border-card">
+        <el-tab-pane label="基础信息" name='basic'>
           <el-form-item label="名称">
             <el-input v-model="model.name"></el-input>
           </el-form-item>
@@ -19,6 +19,18 @@
               :on-success="afterUpload"
             >
               <img v-if="model.avatar" :src="model.avatar" class="avatar" />
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+           <el-form-item label="Banner">
+            <el-upload
+              class="avatar-uploader"
+              :action="$http.defaults.baseURL + '/upload'"
+              :headers='getAuthheaders()'
+              :show-file-list="false"
+              :on-success="res => $set(model,'banner',res.url)"
+            >
+              <img v-if="model.banner" :src="model.banner" class="banner" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-form-item>
@@ -119,9 +131,7 @@
             <el-form-item label='描述'>
               <el-input type='textarea' v-model="item.description"></el-input>
             </el-form-item>
-            <el-form-item label='小提示'>
-              <el-input type='textarea' v-model="item.tips"></el-input>
-            </el-form-item>
+            
             <el-form-item>
               <el-button type='danger' size='small' @click="model.skills.splice(index,1)">删除</el-button>
             </el-form-item>
@@ -215,6 +225,11 @@ export default {
 .avatar {
   width: 5rem;
   height: 5rem;
+  display: block;
+}
+.banner {
+  max-width: 10rem;
+  height: auto;
   display: block;
 }
 </style>
