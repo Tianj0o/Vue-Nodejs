@@ -7,7 +7,7 @@
       <el-table-column prop="title" label="英雄称号"> </el-table-column>
       <el-table-column prop="avatar" label="头像"> 
           <template slot-scope="scope">
-              <img :src="scope.row.avatar" style="{height:3rem}">
+              <img :src="scope.row.avatar" style="{height:2rem}">
           </template>
       </el-table-column>
       <el-table-column fixed="right" label="操作" width="120">
