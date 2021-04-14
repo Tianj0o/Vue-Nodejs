@@ -29,10 +29,7 @@ module.exports = app =>{
 
       res.send(items)
     })
-    router.get('/items/init',async(res,req)=>{
-      const rowData=["https://game.gtimg.cn/images/yxzj/img201606/itemimg/1523.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1422.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1137.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1134.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1138.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1127.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1522.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1422.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1137.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/13310.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1335.jpg", "https://game.gtimg.cn/images/yxzj/img201606/itemimg/1138.jpg"]
-      
-    })
+   
     router.get('/:id',async (req,res)=>{
       const model = await req.Model.findById(req.params.id)
       res.send(model)
